@@ -10,12 +10,6 @@ spring:
       validation-timeout: 2000
       minimum-idle: 10 # 연결 풀에서 HikariCP가 유지 관리하는 최소 유휴 연결 수
 
-    # h2 ################################################################################################################
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/test
-    username: sa
-    # h2 ################################################################################################################
-
   jpa:
     open-in-view: false
     generate-ddl: true
