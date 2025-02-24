@@ -25,4 +25,3 @@ spring:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl   # 카멜이 언더바로 변경되는거 막기
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl   # 쿼리중 필드가 지정한대로 하도록(대소문자 구분하는 DB의 경우 완전 필요)
     defer-datasource-initialization: true	# sql 파일이 hibernate 초기화 이후 동작하게 하기 위한 옵션
-    database: postgresql
