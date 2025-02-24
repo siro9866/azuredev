@@ -4,6 +4,9 @@
 name: Build and deploy JAR app to Azure Web App - dev3
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -21,20 +24,14 @@ jobs:
           java-version: '21'
           distribution: 'microsoft'
 
-      - name: Grant execute permission to gradlew
-        run: chmod +x gradlew
-
-      - name: Build with Gradle
-        run: ./gradlew build   # (build 실행명령어 설정) --no-daemon
-
-      - name: List build/libs contents  # 확인용
-        run: ls -alh build/libs  #  JAR 생성 확인
+      - name: Build with Maven
+        run: mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: 'build/libs/azureDev-0.0.1-SNAPSHOT.jar'
+          path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -55,9 +52,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F70B3C95E43F426B840674DAD2A44CD2 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_4AFD7FF277F4487CB20728EBFB47F751 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4597D7AD5CC64F4DA1885D2F00F51CD2 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_5569E10E78EE4486BBCB67FB6C9EAD8B }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CB0FD12AFD32488186711F14DE57C20E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_19E45E58B745447B9524F6CCD48E561F }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -65,5 +62,5 @@ jobs:
         with:
           app-name: 'dev3'
           slot-name: 'Production'
-          package: 'azureDev-0.0.1-SNAPSHOT.jar'
+          package: '*.jar'
           
