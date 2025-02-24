@@ -23,6 +23,19 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // AES암복호화
+    // https://mvnrepository.com/artifact/commons-codec/commons-codec
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.18.0'
+
+    // AZURE
+    // https://mvnrepository.com/artifact/com.azure.spring/spring-cloud-azure-starter-jdbc-postgresql
+    implementation group: 'com.azure.spring', name: 'spring-cloud-azure-starter', version: '5.20.0'
+    // AZURE
+
+    // 외부라이브러리
+    implementation fileTree(dir: 'libs', includes: ['*.jar'])
+    // 외부라이브러리
 }
 
 tasks.named('test') {
